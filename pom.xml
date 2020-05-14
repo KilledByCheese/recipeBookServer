@@ -13,7 +13,7 @@
 		<maven.compiler.release>11</maven.compiler.release>
 		<java.version>1.11</java.version>
 		<maven.compiler.source>11</maven.compiler.source>
-		<maven.compiler.target>1</maven.compiler.target>
+		<maven.compiler.target>11</maven.compiler.target>
 
 		<spring.boot.starter.web.version>2.2.7.RELEASE</spring.boot.starter.web.version>
 		<spring.boot.starter.test.version>2.2.7.RELEASE</spring.boot.starter.test.version>
