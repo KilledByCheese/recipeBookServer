@@ -1,3 +1,14 @@
+de\killedbycheese\recipeBookServer\recipe\Recipe.class
+de\killedbycheese\recipeBookServer\auth\config\JwtRequestFilter.class
+de\killedbycheese\recipeBookServer\auth\service\JwtUserDetailsService.class
 de\killedbycheese\recipeBookServer\Greeting.class
+de\killedbycheese\recipeBookServer\auth\model\JwtRequest.class
 de\killedbycheese\recipeBookServer\GreetingController.class
+de\killedbycheese\recipeBookServer\auth\util\JwtTokenUtil.class
+de\killedbycheese\recipeBookServer\recipe\Ingredient.class
+de\killedbycheese\recipeBookServer\auth\model\JwtResponse.class
+de\killedbycheese\recipeBookServer\auth\controller\JwtAuthenticationController.class
+de\killedbycheese\recipeBookServer\auth\config\WebSecurityConfig.class
+de\killedbycheese\recipeBookServer\recipe\Instruction.class
 de\killedbycheese\recipeBookServer\RestServiceApplication.class
+de\killedbycheese\recipeBookServer\auth\config\JwtAuthenticationEntryPoint.class

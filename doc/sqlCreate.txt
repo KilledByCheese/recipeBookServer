@@ -1,0 +1,30 @@
+Following SQL statements were used to create a postgresql database for storing the recipes
+
+
+create table recipe_table (
+	recipeID BIGSERIAL primary key,
+	title varchar(125)
+);
+
+create table ingredient_table (
+	ingredientID BIGSERIAL primary key,
+	recipeID BIGSERIAL references recipe_table(recipeID),
+	ingredient varchar(255) not null,
+	quantity varchar(255) not null
+);
+
+create table instruction_table (
+	instructionID BIGSERIAL primary key,
+	recipeID BIGSERIAL references recipe_table(recipeID),
+	stepIndex int not null,
+	step varchar(255)
+);
+
+
+
+Following SQL statements were used to create a postgresql database for storing the authentication
+
+create table auth_table (
+	userID varchar(16) primary KEY,
+	pwHASH char(60) not null
+);
