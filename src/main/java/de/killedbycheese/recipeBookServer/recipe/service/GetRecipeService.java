@@ -3,15 +3,19 @@ package de.killedbycheese.recipeBookServer.recipe.service;
 import de.killedbycheese.recipeBookServer.recipe.util.Ingredient;
 import de.killedbycheese.recipeBookServer.recipe.util.Instruction;
 import de.killedbycheese.recipeBookServer.recipe.util.Recipe;
+import de.killedbycheese.recipeBookServer.recipe.util.RecipeNotFoundException;
 
 public class GetRecipeService {
 
-	public static Recipe getRecipeByTitle(String recipeTitle) {
+	public static Recipe getRecipeByTitle(String recipeTitle) throws RecipeNotFoundException {
 		
 		//TODO build DB connection get recipe by provided title
 		
 		int idFromDB = 1337;
 		String titleFromDB = "Salat";
+		if(!recipeTitle.equals(titleFromDB)) {
+			throw new RecipeNotFoundException("RecipeNotFound");
+		}
 		Recipe dummy = new Recipe(titleFromDB , idFromDB);
 		Ingredient dummyIngredient1 = new Ingredient(420, 1337, "Tomatos", "500g");
 		Ingredient dummyIngredient2 = new Ingredient(666, 1337, "Feldsalat", "200g");

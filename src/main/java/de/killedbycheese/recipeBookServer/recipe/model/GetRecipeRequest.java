@@ -19,7 +19,7 @@ public class GetRecipeRequest implements Serializable {
 		this.setRecipeTitle(title);
 	}
 
-	private void setRecipeTitle(String title) {
+	public void setRecipeTitle(String title) {
 		this.recipeTitle = title;
 	}
 	
