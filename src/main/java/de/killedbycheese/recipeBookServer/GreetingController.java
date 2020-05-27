@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 
- * @RestController marks the class as a Controller where every method returns a domain object instead of a view
+ * RestController marks the class as a Controller where every method returns a domain object instead of a view
  *
  */
 @RestController
@@ -20,8 +20,8 @@ public class GreetingController {
 	
 	
 	/*
-	 * @GetMapping maps Get request to /greeting to this Method
-	 * @RequestParam binds the Parameter name to the name Parameter of the Method, 
+	 * GetMapping maps Get request to /greeting to this Method
+	 * RequestParam binds the Parameter name to the name Parameter of the Method, 
 	 * 				if the Parameter is not present use the Default
 	 */
 	@GetMapping("/greeting") 

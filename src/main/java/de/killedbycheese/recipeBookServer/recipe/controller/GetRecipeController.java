@@ -15,8 +15,8 @@ import de.killedbycheese.recipeBookServer.recipe.util.RecipeNotFoundException;
 @RestController
 public class GetRecipeController {
 
-	@GetMapping(value="/getRecipeByTitle")
-	public ResponseEntity<?> getRecipe(@Valid GetRecipeRequest recipeRequest ) throws Exception{
+	@GetMapping(value = "/getRecipeByTitle")
+	public ResponseEntity<?> getRecipe(@Valid GetRecipeRequest recipeRequest) throws Exception {
 		try {
 			Recipe recipe;
 			recipe = GetRecipeService.getRecipeByTitle(recipeRequest.getRecipeTitle());

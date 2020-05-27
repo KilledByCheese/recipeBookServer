@@ -5,10 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 /**
- * @SpringBootApplication adds:
- * 		@Configuration - source of bean definitions and application context
- * 		@EnableAutoConfiguration
- * 		@ComponentScan
+ * SpringBootApplication adds:
+ * 		Configuration - source of bean definitions and application context
+ * 		EnableAutoConfiguration
+ * 		ComponentScan
  * 		 
  *
  */

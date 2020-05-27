@@ -40,9 +40,8 @@ public class Recipe {
 	
 	
 	/**
-	 * 
-	 * @param ingredient
-	 * @return false if the provided recipeId is not the same otherwise true
+	 * param ingredient
+	 * return false if the provided recipeId is not the same otherwise true
 	 */
 	public boolean addIngredient(Ingredient ingredient) {
 		if(ingredient.getRecipeId() != id) return false;
@@ -52,8 +51,8 @@ public class Recipe {
 	
 	/**
 	 * 
-	 * @param instruction
-	 * @return false if the recipeId is not the same or the provided index is already present otherwise true
+	 * param instruction
+	 * return false if the recipeId is not the same or the provided index is already present otherwise true
 	 */
 	public boolean addInstruction(Instruction instruction) {
 		if(instruction.getRecipeId() != id) return false;
