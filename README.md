@@ -3,7 +3,8 @@
 This is a Project designed to provide an API for my own personal recipe book.  
 I love cooking and I was looking for a smart way to store all the creations I enjoy.  
 This Project aims to provide a simple to use REST API to search, update and store recipes.  
-I used different tutorials and instructions on the internet to build this step by step. It is an evolving project so most likely not all functions are implemented (yet).
+I used different tutorials and instructions on the internet to build this step by step. It is an evolving project so most likely not all functions are implemented (yet).  
+
 ---
 ## Getting Started
 
