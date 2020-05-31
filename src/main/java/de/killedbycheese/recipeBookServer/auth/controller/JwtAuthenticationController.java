@@ -21,6 +21,7 @@ import de.killedbycheese.recipeBookServer.auth.util.JwtTokenUtil;
 @RestController
 @CrossOrigin
 public class JwtAuthenticationController {
+	
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	@Autowired
@@ -30,15 +31,26 @@ public class JwtAuthenticationController {
 
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
-		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+		
+		//Authenticate User by Username and password
+		String requestUsername = authenticationRequest.getUsername();
+		String requestPassword = authenticationRequest.getPassword();
+		authenticate(requestUsername, requestPassword);
+		
+		//Get User Details by Username
+		final UserDetails userDetails = userDetailsService.loadUserByUsername(requestUsername);
+		//Generate Token based on User Details
 		final String token = jwtTokenUtil.generateToken(userDetails);
-		return ResponseEntity.ok(new JwtResponse(token));
+		
+		//Return Response
+		JwtResponse response = new JwtResponse(token);
+		return ResponseEntity.ok(response);
 	}
 
 	private void authenticate(String username, String password) throws Exception {
 		try {
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, password);
+			authenticationManager.authenticate(authentication);
 		} catch (DisabledException e) {
 			throw new Exception("USER_DISABLED", e);
 		} catch (BadCredentialsException e) {
