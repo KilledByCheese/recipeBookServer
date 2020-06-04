@@ -2,35 +2,35 @@ Following SQL statements were used to create a postgresql database for storing t
 
 
 create table recipe_table (
-	recipeID BIGSERIAL primary key,
-	title varchar(125),
-	serves varchar(30)
+	recipeID BIGSERIAL primary key not null,
+	title varchar(125) not null,
+	serves varchar(30) not null
 );
 
 create table ingredient_table (
-	ingredientID BIGSERIAL primary key,
-	recipeID BIGSERIAL references recipe_table(recipeID),
+	ingredientID BIGSERIAL primary key not null,
+	recipeID BIGSERIAL references recipe_table(recipeID) not null,
 	ingredient varchar(255) not null,
 	quantity varchar(255) not null
 );
 
 create table instruction_table (
-	instructionID BIGSERIAL primary key,
-	recipeID BIGSERIAL references recipe_table(recipeID),
+	instructionID BIGSERIAL primary key not null,
+	recipeID BIGSERIAL references recipe_table(recipeID) not null,
 	stepIndex int not null,
-	step varchar(255)
+	step varchar(255) not null
 );
 
 create table picture_table (
-	pictureID BIGSERIAL primary key,
-	recipeID BIGSERIAL references recipe_table(recipeID),
-	pictureLink varchar(2048)
+	pictureID BIGSERIAL primary key not null,
+	recipeID BIGSERIAL references recipe_table(recipeID) not null,
+	pictureLink varchar(2048) not null
 );
 
 create table category_table (
-	categoryID BIGSERIAL primary key,
-	recipeID BIGSERIAL references recipe_table(recipeID),
-	category varchar(60)
+	categoryID BIGSERIAL primary key not null,
+	recipeID BIGSERIAL references recipe_table(recipeID) not null,
+	category varchar(60) not null
 );
 
 
@@ -38,6 +38,6 @@ create table category_table (
 Following SQL statements were used to create a postgresql database for storing the authentication
 
 create table auth_table (
-	userID varchar(16) primary KEY,
+	userID varchar(16) primary KEY not null,
 	pwHASH char(60) not null
 );

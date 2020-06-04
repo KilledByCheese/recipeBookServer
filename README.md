@@ -27,7 +27,7 @@ db.user=user
 db.pw=password
 recipe.db.url=jdbc:postgresql://myPostgreSQLurl:5432/recipes
 recipe.db.user=user
-recipe.db.pw=password
+recipe.db.pw=password  
 ```
 Make sure to match the `db.url` `db.user` and `db.pw` to your Database.  
 
