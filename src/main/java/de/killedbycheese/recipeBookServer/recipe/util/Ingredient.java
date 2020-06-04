@@ -1,15 +1,18 @@
 package de.killedbycheese.recipeBookServer.recipe.util;
 
+import java.io.Serializable;
 
-public class Ingredient {
+public class Ingredient implements Serializable {
 
-	private int ingredientId;
-	private int recipeId;
+	private static final long serialVersionUID = 8999549905178558759L;
+	
+	private long ingredientId;
+	private long recipeId;
 	private String ingredient;
 	private String quantity;
 	
 	
-	public Ingredient(int ingredientId, int recipeId, String ingredient, String quantity) {
+	public Ingredient(long ingredientId, long recipeId, String ingredient, String quantity) {
 		this.ingredientId = ingredientId;
 		this.recipeId = recipeId;
 		this.ingredient = ingredient;
@@ -17,10 +20,10 @@ public class Ingredient {
 	}
 	
 	
-	public int getIngredientId() {
+	public long getIngredientId() {
 		return ingredientId;
 	}
-	public int getRecipeId() {
+	public long getRecipeId() {
 		return recipeId;
 	}
 	public String getIngredient() {

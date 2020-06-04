@@ -3,7 +3,8 @@ Following SQL statements were used to create a postgresql database for storing t
 
 create table recipe_table (
 	recipeID BIGSERIAL primary key,
-	title varchar(125)
+	title varchar(125),
+	serves varchar(30)
 );
 
 create table ingredient_table (
@@ -18,6 +19,18 @@ create table instruction_table (
 	recipeID BIGSERIAL references recipe_table(recipeID),
 	stepIndex int not null,
 	step varchar(255)
+);
+
+create table picture_table (
+	pictureID BIGSERIAL primary key,
+	recipeID BIGSERIAL references recipe_table(recipeID),
+	pictureLink varchar(2048)
+);
+
+create table category_table (
+	categoryID BIGSERIAL primary key,
+	recipeID BIGSERIAL references recipe_table(recipeID),
+	category varchar(60)
 );
 
 
