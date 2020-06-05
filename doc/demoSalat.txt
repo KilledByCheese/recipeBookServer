@@ -1,5 +1,5 @@
-insert into recipe_table(title, serves)
-values('Salat','1-2 People' );
+insert into recipe_table(title, serves, difficulty )
+values('Salat','1-2 People','EASY' );
 
 insert into ingredient_table (recipeid, ingredient, quantity )
 values(1, 'Tomatoes', '500g');
@@ -21,6 +21,3 @@ values(1,'Vegan');
 
 insert into category_table (recipeid , category )
 values(1,'Vegetarisch');
-
-insert into category_table (recipeid , category )
-values(1,'Einfach');

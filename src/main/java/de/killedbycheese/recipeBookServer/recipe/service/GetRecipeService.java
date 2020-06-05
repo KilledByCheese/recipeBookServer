@@ -1,6 +1,8 @@
 package de.killedbycheese.recipeBookServer.recipe.service;
 
 
+import java.util.Vector;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,13 @@ public class GetRecipeService {
 		
 		return recipe;
 		
+	}
+
+	public Vector<Recipe> getRecipeListByKeyword(String keyword, int page) throws RecipeNotFoundException {
+		
+		Vector<Recipe> recipeList = recipeDAO.getRecipeListByKeyword(keyword, page);
+		
+		return recipeList;
 	}
 
 }

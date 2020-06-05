@@ -21,7 +21,7 @@ private JdbcTemplate jdbcTemplate;
 	}
 	
 	public List<Instruction> getInstructionListByRecipeID(long recipeID) {
-		final String query = "SELECT * FROM instruction_table WHERE recipeID = ?";
+		final String query = "SELECT * FROM instruction_table WHERE recipeID = ?;";
 		return jdbcTemplate.query(query, new Object[] { recipeID }, new InstructionRowMapper());
 	}
 

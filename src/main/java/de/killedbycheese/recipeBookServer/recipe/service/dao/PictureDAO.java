@@ -22,7 +22,7 @@ public class PictureDAO {
 	}
 	
 	public List<PictureURL> getPictureListByRecipeID(long recipeID) {
-		final String query = "SELECT * FROM picture_table WHERE recipeID = ?";
+		final String query = "SELECT * FROM picture_table WHERE recipeID = ?;";
 		return jdbcTemplate.query(query, new Object[] { recipeID }, new PictureRowMapper());
 	}
 

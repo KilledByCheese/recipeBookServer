@@ -15,8 +15,9 @@ public class RecipeRowMapper implements RowMapper<Recipe> {
 		String title = rs.getString("title"); 
 		long id = rs.getLong("recipeID");
 		String serves = rs.getString("serves");
+		String difficulty = rs.getString("difficulty");
 		
-		return new Recipe(title, id, serves);
+		return new Recipe(title, id, serves, difficulty);
 	}
 
 	

@@ -22,7 +22,7 @@ public class CategoryDAO {
 	}
 
 	public List<Category> getCategoryListByRecipeID(long recipeID) {
-		final String query = "SELECT * FROM category_table WHERE recipeID = ?";
+		final String query = "SELECT * FROM category_table WHERE recipeID = ?;";
 		return jdbcTemplate.query(query, new Object[] { recipeID }, new CategoryRowMapper());
 	}
 	

@@ -4,7 +4,8 @@ Following SQL statements were used to create a postgresql database for storing t
 create table recipe_table (
 	recipeID BIGSERIAL primary key not null,
 	title varchar(125) not null,
-	serves varchar(30) not null
+	serves varchar(30) not null,
+	difficulty varchar(10) not null
 );
 
 create table ingredient_table (

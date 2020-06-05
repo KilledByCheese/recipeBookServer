@@ -20,7 +20,7 @@ private JdbcTemplate jdbcTemplate;
 	}
 	
 	public List<Ingredient> getIngredientListByRecipeID(long recipeID) {
-		final String query = "SELECT * FROM ingredient_table WHERE recipeID = ?";
+		final String query = "SELECT * FROM ingredient_table WHERE recipeID = ?;";
 		return jdbcTemplate.query(query, new Object[] { recipeID }, new IngredientRowMapper());
 	}
 

@@ -1,10 +1,10 @@
-package de.killedbycheese.recipeBookServer.recipe.model;
+package de.killedbycheese.recipeBookServer.recipe.model.request;
 
 import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
 
-public class GetRecipeRequest implements Serializable {
+public class GetRecipeByTitleRequest implements Serializable {
 
 	private static final long serialVersionUID = -8038588923440323929L;
 	
@@ -12,10 +12,10 @@ public class GetRecipeRequest implements Serializable {
 	private String recipeTitle ="";
 
 	//Default for Json
-	public GetRecipeRequest() {
+	public GetRecipeByTitleRequest() {
 	}
 	
-	public GetRecipeRequest(String title) {
+	public GetRecipeByTitleRequest(String title) {
 		this.setRecipeTitle(title);
 	}
 

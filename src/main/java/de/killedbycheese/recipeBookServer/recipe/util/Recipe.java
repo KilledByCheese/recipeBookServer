@@ -11,6 +11,7 @@ public class Recipe implements Serializable {
 	private String title;
 	private long id;
 	private String serves;
+	private String difficulty;
 	
 	private Vector<Ingredient> ingredientList;
 	private Vector<Instruction> instructionList;
@@ -18,11 +19,12 @@ public class Recipe implements Serializable {
 	private Vector<Category> categoryList;
 	
 	
-	public Recipe(String title, long id, String serves) {
+	public Recipe(String title, long id, String serves, String difficulty) {
 		
 		this.title = title;
 		this.id = id;
 		this.serves = serves;
+		this.difficulty = difficulty;
 		
 		this.ingredientList = new Vector<>();
 		this.instructionList = new Vector<>();
@@ -51,6 +53,10 @@ public class Recipe implements Serializable {
 	public String getServes() {
 		return serves;
 	}	
+	
+	public String getDifficulty() {
+		return difficulty;
+	}
 	
 	public Vector<PictureURL> getPictureList() {
 		return pictureList;

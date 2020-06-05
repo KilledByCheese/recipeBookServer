@@ -1,16 +1,16 @@
-package de.killedbycheese.recipeBookServer.recipe.model;
+package de.killedbycheese.recipeBookServer.recipe.model.response;
 
 import java.io.Serializable;
 
 import de.killedbycheese.recipeBookServer.recipe.util.Recipe;
 
-public class GetRecipeResponse implements Serializable {
+public class RecipeResponse implements Serializable {
 
 	private static final long serialVersionUID = 6530266945188153899L;
 
 	private final Recipe recipe;
 	
-	public GetRecipeResponse(Recipe recipe) {
+	public RecipeResponse(Recipe recipe) {
 		this.recipe = recipe;
 	}
 	
