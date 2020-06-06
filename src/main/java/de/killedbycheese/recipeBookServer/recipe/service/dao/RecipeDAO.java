@@ -135,7 +135,19 @@ public class RecipeDAO {
 			
 		}
 		
-		return recipeListByCategoryList;
+		int min = (page * 10) - 10;
+		int max = (page * 10) - 1;
+		
+		Vector<Recipe> returnList = new Vector<>();
+		for(int i = min; i < max; i++) {
+			try {
+				returnList.add(recipeListByCategoryList.get(i));
+			} catch(IndexOutOfBoundsException e) {
+				
+			}
+		}
+		
+		return returnList;
 	}
 	
 	private Vector<Recipe> getRecipeListByCategory(String category) throws RecipeNotFoundException {
