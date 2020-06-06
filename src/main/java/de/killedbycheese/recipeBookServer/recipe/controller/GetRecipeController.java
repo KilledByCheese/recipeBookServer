@@ -1,5 +1,6 @@
 package de.killedbycheese.recipeBookServer.recipe.controller;
 
+import java.util.List;
 import java.util.Vector;
 
 import javax.validation.Valid;
@@ -7,9 +8,11 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.killedbycheese.recipeBookServer.recipe.model.request.GetRecipeByTitleRequest;
+import de.killedbycheese.recipeBookServer.recipe.model.request.GetRecipeListByCategoryListRequest;
 import de.killedbycheese.recipeBookServer.recipe.model.request.GetRecipeListByKeywordRequest;
 import de.killedbycheese.recipeBookServer.recipe.model.response.RecipeListResponse;
 import de.killedbycheese.recipeBookServer.recipe.model.response.RecipeResponse;
@@ -52,5 +55,28 @@ public class GetRecipeController {
 		} catch (RecipeNotFoundException e) {
 			return ResponseEntity.ok(e.getMessage());
 		}
+	}
+	
+	@GetMapping(value = "/getRecipeListByCategoryList")
+	public ResponseEntity<?> getRecipeListByCategoryList(@Valid @RequestBody GetRecipeListByCategoryListRequest categoryRequest) throws Exception {
+		try {
+			List<String> categoryList = categoryRequest.getCategoryList();
+			if (categoryList.isEmpty() || categoryList == null)
+				throw new RecipeNotFoundException("No Categorys provided");
+			int page = categoryRequest.getPage();
+			if (page <= 0)
+				throw new RecipeNotFoundException("Page not Valid");
+			
+			Vector<Recipe> recipeList;
+			
+			recipeList = getRecipeService.getRecipeListByCategoryList(categoryList, page);
+			
+			return ResponseEntity.ok(new RecipeListResponse(recipeList));
+			
+		} catch (RecipeNotFoundException e) {
+			return ResponseEntity.ok(e.getMessage());
+		}
+		
+		
 	}
 }

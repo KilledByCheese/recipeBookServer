@@ -21,3 +21,30 @@ values(1,'Vegan');
 
 insert into category_table (recipeid , category )
 values(1,'Vegetarisch');
+
+
+
+
+
+insert into recipe_table(title, serves, difficulty )
+values('Auflauf','3-4 People','MEDIUM' );
+
+insert into ingredient_table (recipeid, ingredient, quantity )
+values(2, 'Nudeln', '500g');
+
+insert into ingredient_table (recipeid, ingredient, quantity )
+values(2, 'Käse', '300g');
+
+insert into instruction_table (recipeid , stepindex , step)
+values (2,1,'Nudeln nach packungsanweisung kochen');
+
+insert into instruction_table (recipeid , stepindex , step)
+values (2,2,'Nudeln mit Käse überbackenn');
+
+insert into picture_table (recipeid , picturelink )
+values(2, 'https://cdn.gutekueche.de/upload/rezept/758/einfacher-nudelauflauf.jpg');
+insert into category_table (recipeid , category )
+values(2,'Cheesy');
+
+insert into category_table (recipeid , category )
+values(2,'Vegetarisch');

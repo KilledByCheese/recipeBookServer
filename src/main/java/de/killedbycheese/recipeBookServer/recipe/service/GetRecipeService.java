@@ -1,6 +1,7 @@
 package de.killedbycheese.recipeBookServer.recipe.service;
 
 
+import java.util.List;
 import java.util.Vector;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,13 @@ public class GetRecipeService {
 	public Vector<Recipe> getRecipeListByKeyword(String keyword, int page) throws RecipeNotFoundException {
 		
 		Vector<Recipe> recipeList = recipeDAO.getRecipeListByKeyword(keyword, page);
+		
+		return recipeList;
+	}
+
+	public Vector<Recipe> getRecipeListByCategoryList(List<String> categoryList, int page) throws RecipeNotFoundException {
+
+		Vector<Recipe> recipeList = recipeDAO.getRecipeListByCategoryList(categoryList, page);
 		
 		return recipeList;
 	}

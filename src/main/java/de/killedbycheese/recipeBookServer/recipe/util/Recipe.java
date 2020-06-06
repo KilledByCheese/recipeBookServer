@@ -3,7 +3,7 @@ package de.killedbycheese.recipeBookServer.recipe.util;
 import java.io.Serializable;
 import java.util.Vector;
 
-public class Recipe implements Serializable {
+public class Recipe implements Serializable, Comparable<Recipe> {
 	
 	private static final long serialVersionUID = -5582035696192226709L;
 	
@@ -106,6 +106,19 @@ public class Recipe implements Serializable {
 		}
 		categoryList.add(category);
 		return true;
+	}
+
+	@Override
+	public int compareTo(Recipe o) {
+		if(this.id == o.id) return 0;
+		return -1;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		Recipe o2 = (Recipe) obj;
+		if(this.id == o2.getId()) return true;
+		return false;
 	}
 
 	
