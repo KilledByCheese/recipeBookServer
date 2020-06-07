@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.killedbycheese.recipeBookServer.recipe.model.request.GetRecipeByTitleRequest;
@@ -26,6 +29,19 @@ public class GetRecipeController {
 	@Autowired
 	private GetRecipeService getRecipeService;
 
+	@GetMapping(value = "/getRecipes")
+	public ResponseEntity<?> getRecipeList(@RequestParam(value = "page", defaultValue = "1") Integer page) {
+		try {
+			int p = page;
+			Vector<Recipe> recipeList = getRecipeService.getRecipeList(p);			
+			return ResponseEntity.ok(new RecipeListResponse(recipeList));
+			
+		} catch (RecipeNotFoundException e) {
+			return ResponseEntity.ok(e.getMessage());
+		}
+		
+	}
+	
 	@GetMapping(value = "/getRecipeByTitle")
 	public ResponseEntity<?> getRecipeByTitle(@Valid GetRecipeByTitleRequest recipeRequest) throws Exception {
 		try {
@@ -57,7 +73,7 @@ public class GetRecipeController {
 		}
 	}
 	
-	@GetMapping(value = "/getRecipeListByCategoryList")
+	@RequestMapping(value = "/getRecipeListByCategoryList", method = RequestMethod.POST)
 	public ResponseEntity<?> getRecipeListByCategoryList(@Valid @RequestBody GetRecipeListByCategoryListRequest categoryRequest) throws Exception {
 		try {
 			List<String> categoryList = categoryRequest.getCategoryList();

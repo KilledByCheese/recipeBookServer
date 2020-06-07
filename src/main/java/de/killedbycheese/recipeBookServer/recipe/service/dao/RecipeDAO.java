@@ -87,20 +87,8 @@ public class RecipeDAO {
 		recipeList.addAll(getRecipeListByIdList(idListRecipe));
 		
 		if(recipeList.isEmpty() || recipeList == null) throw new RecipeNotFoundException("No Recipes Found for provided Keyword: " + keyword);
-		
-		int min = (page * 10) - 10;
-		int max = (page * 10) - 1;
-		
-		Vector<Recipe> returnList = new Vector<>();
-		for(int i = min; i < max; i++) {
-			try {
-				returnList.add(recipeList.get(i));
-			} catch(IndexOutOfBoundsException e) {
 				
-			}
-		}
-		
-		return returnList;
+		return paginateList(recipeList, page);
 	}
 
 	public Vector<Recipe> getRecipeListByCategoryList(List<String> categoryList, int page) throws RecipeNotFoundException {
@@ -134,20 +122,9 @@ public class RecipeDAO {
 			}
 			
 		}
-		
-		int min = (page * 10) - 10;
-		int max = (page * 10) - 1;
-		
-		Vector<Recipe> returnList = new Vector<>();
-		for(int i = min; i < max; i++) {
-			try {
-				returnList.add(recipeListByCategoryList.get(i));
-			} catch(IndexOutOfBoundsException e) {
 				
-			}
-		}
 		
-		return returnList;
+		return paginateList(recipeListByCategoryList, page);
 	}
 	
 	private Vector<Recipe> getRecipeListByCategory(String category) throws RecipeNotFoundException {
@@ -162,7 +139,7 @@ public class RecipeDAO {
 	}
 
 	private Vector<Recipe> getRecipeListByIdList(List<Long> recipeIdList) throws RecipeNotFoundException {
-		String query = "select title from recipe_table where recipeid = ? ;";
+		final String query = "select title from recipe_table where recipeid = ? ;";
 		
 		Vector<String> titleList = new Vector<>();
 		
@@ -177,6 +154,31 @@ public class RecipeDAO {
 		}
 		
 		return recipeList;
+	}
+
+	public Vector<Recipe> getRecipeList(int page) throws RecipeNotFoundException {
+		final String query = "select distinct recipeid from recipe_table ;";
+		List<Long> recipeIdList = jdbcTemplate.query(query, new RecipeIdMapper());
+		
+		Vector<Recipe> recipeList = getRecipeListByIdList(recipeIdList);
+		
+		return paginateList(recipeList, page);
+	}
+	
+	private Vector<Recipe> paginateList(List<Recipe> recipeList, int page) {
+		int min = (page * 10) - 10;
+		int max = (page * 10) - 1;
+		
+		Vector<Recipe> returnList = new Vector<>();
+		for(int i = min; i < max; i++) {
+			try {
+				returnList.add(recipeList.get(i));
+			} catch(IndexOutOfBoundsException e) {
+				//DO nothing
+			}
+		}
+		
+		return returnList;
 	}
 
 }

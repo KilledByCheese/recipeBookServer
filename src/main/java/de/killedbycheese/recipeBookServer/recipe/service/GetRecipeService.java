@@ -39,4 +39,11 @@ public class GetRecipeService {
 		return recipeList;
 	}
 
+	public Vector<Recipe> getRecipeList(int p) throws RecipeNotFoundException{
+		
+		Vector<Recipe> recipeList = recipeDAO.getRecipeList(p);
+				
+		return recipeList;
+	}
+
 }
