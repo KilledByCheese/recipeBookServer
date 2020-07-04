@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,11 +24,17 @@ import de.killedbycheese.recipeBookServer.recipe.service.GetRecipeService;
 import de.killedbycheese.recipeBookServer.recipe.util.Recipe;
 import de.killedbycheese.recipeBookServer.recipe.util.RecipeNotFoundException;
 
+
 @RestController
 public class GetRecipeController {
 	
 	@Autowired
 	private GetRecipeService getRecipeService;
+	
+	@RequestMapping(value= "/isTokenValid", method = RequestMethod.POST)
+	public ResponseEntity<?> validateToken() throws Exception {
+		return ResponseEntity.ok("Token still valid");
+	}
 
 	@GetMapping(value = "/getRecipes")
 	public ResponseEntity<?> getRecipeList(@RequestParam(value = "page", defaultValue = "1") Integer page) {
