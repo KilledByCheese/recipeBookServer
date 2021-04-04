@@ -1,0 +1,50 @@
+insert into recipe_table(title, serves, difficulty )
+values('Salat','1-2 People','EASY' );
+
+insert into ingredient_table (recipeid, ingredient, quantity )
+values(1, 'Tomatoes', '500g');
+
+insert into ingredient_table (recipeid, ingredient, quantity )
+values(1, 'Feldsalat', '1 Packung');
+
+insert into instruction_table (recipeid , stepindex , step)
+values (1,1,'Tomaten schneiden');
+
+insert into instruction_table (recipeid , stepindex , step)
+values (1,2,'Tomaten mit dem Feldsalat mischen');
+
+insert into picture_table (recipeid , picturelink )
+values(1, 'https://www.daskochrezept.de/sites/default/files/styles/media_entity_teaser_twitter/public/rezepte/2009/3/Feldsalat-mit-Tomaten-und-Senf-Dressing-49c349c0b5c62.jpg?itok=79wwGUsG');
+
+insert into category_table (recipeid , category )
+values(1,'Vegan');
+
+insert into category_table (recipeid , category )
+values(1,'Vegetarisch');
+
+
+
+
+
+insert into recipe_table(title, serves, difficulty )
+values('Auflauf','3-4 People','MEDIUM' );
+
+insert into ingredient_table (recipeid, ingredient, quantity )
+values(2, 'Nudeln', '500g');
+
+insert into ingredient_table (recipeid, ingredient, quantity )
+values(2, 'Käse', '300g');
+
+insert into instruction_table (recipeid , stepindex , step)
+values (2,1,'Nudeln nach packungsanweisung kochen');
+
+insert into instruction_table (recipeid , stepindex , step)
+values (2,2,'Nudeln mit Käse überbackenn');
+
+insert into picture_table (recipeid , picturelink )
+values(2, 'https://cdn.gutekueche.de/upload/rezept/758/einfacher-nudelauflauf.jpg');
+insert into category_table (recipeid , category )
+values(2,'Cheesy');
+
+insert into category_table (recipeid , category )
+values(2,'Vegetarisch');
