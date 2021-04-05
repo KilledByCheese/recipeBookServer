@@ -70,6 +70,13 @@ public class JwtAuthenticationController {
 	}
 	
 	
+	@RequestMapping(value = "/validateToken", method = RequestMethod.POST)
+	public ResponseEntity<?> validateToken() throws Exception {
+		
+		return new ResponseEntity<String>("Token is valid", HttpStatus.OK);
+		
+	}
+	
 
 	private void authenticate(String username, String password)  {
 		try {

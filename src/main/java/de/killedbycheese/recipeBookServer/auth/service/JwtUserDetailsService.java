@@ -33,10 +33,11 @@ public class JwtUserDetailsService implements UserDetailsService {
 	
 
 	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		RecipeUser recipeUser = jdbcTemplate.queryForObject(SQL_FIND_BY_USERID, userRowMapper, email);
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		System.out.println("getting User with username: " + username);
+		RecipeUser recipeUser = jdbcTemplate.queryForObject(SQL_FIND_BY_USERID, userRowMapper, username);
 		if (recipeUser == null) {
-			throw new UsernameNotFoundException("User not found with username: " + email);
+			throw new UsernameNotFoundException("User not found with username: " + username);
 		}
 		ArrayList<GrantedAuthority> authorities = new ArrayList<>();
 		GrantedAuthority role = new GrantedAuthority() {
@@ -48,7 +49,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 			}
 		};
 		authorities.add(role);
-		return new User(recipeUser.getEmail(), recipeUser.getPwhash(), authorities);
+		return new User(recipeUser.getUserid(), recipeUser.getPwhash(), authorities);
 
 	}
 	
@@ -60,6 +61,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 		user.setEmail(rs.getString("email"));
 		user.setPwhash(rs.getString("pwhash"));
 		user.setRole(Role.valueOf(rs.getString("role")));
+		System.out.println("Mapped User: " + user);
 		return user;
 	});
 	
