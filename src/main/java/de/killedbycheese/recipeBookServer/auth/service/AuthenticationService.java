@@ -23,7 +23,7 @@ public class AuthenticationService {
 	private AuthenticationManager authenticationManager;
 	
 	@Autowired
-	RecipeUserRepository recipeUserRepository;
+	private RecipeUserRepository recipeUserRepository;
 	
 	public void authenticate(@Valid JwtRequest authenticationRequest)  {
 		try {
