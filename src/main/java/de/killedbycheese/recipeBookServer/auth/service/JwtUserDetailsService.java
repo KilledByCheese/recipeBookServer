@@ -26,17 +26,8 @@ public class JwtUserDetailsService implements UserDetailsService {
 		if (recipeUser == null) {
 			throw new UsernameNotFoundException("User not found with username: " + username);
 		}
-		return new User(recipeUser.getId().toString(), recipeUser.getPwHash(), new ArrayList<>());
+		return new User(recipeUser.getUserName(), recipeUser.getPwHash(), new ArrayList<>());
 		
 	}
-
-	public RecipeUser createUser() {
-		// TODO Auto-generated method stub
-		RecipeUser temp = new RecipeUser();
-		temp.setEmail("test@example.com");
-		temp.setUserName("testUser");
-		temp.setPwHash("$2a$12$d.YOJq1tut8TKGd/hyKNyukZ0rbOJ1L59fkJGWJNrqdSdEqC.OmYO");
-		temp.setUserRole(UserRole.USER);
-		return recipeUserRepository.save(temp);
-	}
+	
 }
