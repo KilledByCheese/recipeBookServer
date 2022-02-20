@@ -2,19 +2,20 @@ package de.killedbycheese.recipeBookServer.auth.model;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
 public class JwtRequest implements Serializable {
 	
 	private static final long serialVersionUID = 5926468583005150707L;
+	
+	@NotEmpty(message = "Username cannot be missing")
 	private String username;
+	
+	@NotEmpty(message = "Password cannot be missing")
 	private String password;
-
+	
 	//need default constructor for JSON Parsing
 	public JwtRequest() {
-	}
-
-	public JwtRequest(String username, String password) {
-		this.setUsername(username);
-		this.setPassword(password);
 	}
 
 	public String getUsername() {
