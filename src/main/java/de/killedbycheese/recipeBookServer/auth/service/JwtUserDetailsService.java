@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import de.killedbycheese.recipeBookServer.auth.model.RecipeUser;
+import de.killedbycheese.recipeBookServer.auth.entity.RecipeUser;
 import de.killedbycheese.recipeBookServer.auth.repository.RecipeUserRepository;
 import de.killedbycheese.recipeBookServer.auth.util.UserRole;
 

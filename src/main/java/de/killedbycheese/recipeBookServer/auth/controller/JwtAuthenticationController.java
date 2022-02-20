@@ -3,14 +3,11 @@ package de.killedbycheese.recipeBookServer.auth.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.postgresql.util.PSQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -19,11 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.http.HttpStatus;
 
-import de.killedbycheese.recipeBookServer.auth.model.JwtRequest;
-import de.killedbycheese.recipeBookServer.auth.model.JwtResponse;
+import de.killedbycheese.recipeBookServer.auth.dto.JwtRequest;
+import de.killedbycheese.recipeBookServer.auth.dto.RegisterRequest;
 import de.killedbycheese.recipeBookServer.auth.service.AuthenticationService;
 import de.killedbycheese.recipeBookServer.auth.service.JwtUserDetailsService;
 import de.killedbycheese.recipeBookServer.auth.util.JwtTokenUtil;
@@ -46,29 +42,27 @@ public class JwtAuthenticationController {
 	public ResponseEntity<?> createAuthenticationToken(@Valid @RequestBody JwtRequest authenticationRequest)
 			throws Exception {
 
-		String requestUsername = authenticationRequest.getUsername();
-		String requestPassword = authenticationRequest.getPassword();
-
-		authenticationService.authenticate(requestUsername, requestPassword);
-		final UserDetails userDetails = userDetailsService.loadUserByUsername(requestUsername);
+		authenticationService.authenticate(authenticationRequest);
+		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 		final String token = jwtTokenUtil.generateToken(userDetails);
 
-		JwtResponse response = new JwtResponse(token);
-		return ResponseEntity.ok(response);
+		return ResponseEntity.ok(token);
 	}
 
-	@PostMapping(value = "/yeet")
-	public ResponseEntity<?> createAuthenticationToken() throws Exception {
+	@PostMapping(value = "/register")
+	public ResponseEntity<?> registerNewUser(@Valid @RequestBody RegisterRequest registerRequest) throws Exception {
 
-		return ResponseEntity.ok(userDetailsService.createUser().toString());
+		authenticationService.registerNewUser(registerRequest);
+		return new ResponseEntity<String>("Success", HttpStatus.CREATED);
 	}
 
-	@ExceptionHandler(MethodArgumentNotValidException.class)
+	@ExceptionHandler({MethodArgumentNotValidException.class, PSQLException.class})
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody ErrorInfo
 	handleBadRequest(HttpServletRequest req, Exception ex) {
 		logger.error("Request: " + req.getRequestURL() + " raised " + ex);
 	    return new ErrorInfo(req.getRequestURI(), ex);
 	} 
+	
 
 }

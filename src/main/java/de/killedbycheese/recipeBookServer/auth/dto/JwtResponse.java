@@ -1,4 +1,4 @@
-package de.killedbycheese.recipeBookServer.auth.model;
+package de.killedbycheese.recipeBookServer.auth.dto;
 
 import java.io.Serializable;
 

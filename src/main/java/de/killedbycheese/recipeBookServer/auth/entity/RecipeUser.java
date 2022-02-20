@@ -1,4 +1,4 @@
-package de.killedbycheese.recipeBookServer.auth.model;
+package de.killedbycheese.recipeBookServer.auth.entity;
 
 import java.io.Serializable;
 
@@ -72,6 +72,7 @@ public class RecipeUser implements Serializable {
 	public void setUserRole(UserRole userRole) {
 		this.userRole = userRole;
 	}
+	
 	
 	
 }
