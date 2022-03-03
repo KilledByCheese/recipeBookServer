@@ -38,7 +38,7 @@ public class RecipeService {
 		recipe.setServing(newRecipe.getServing());
 		
 		for(String c : newRecipe.getCategories()) {
-			Category findByValue = categoryRepository.findByValue(c);
+			Category findByValue = categoryRepository.findByValue(c.toUpperCase());
 			recipe.getCategory().add(findByValue);
 		}
 		
