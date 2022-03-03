@@ -12,29 +12,37 @@ I used the following Tools/Frameworks to create this Project
 + Eclipse
 + Maven
 + Spring
-+ PostgreSQL  
++ MongoDB 
 
-I used this *stack* because I already have experience with Maven, Eclipse and PostgreSQL and I wanted to get some hands-on experience with Spring.
+I used this *stack* because I already have experience with Maven, Eclipse and MongoDB and I wanted to get some hands-on experience with Spring.
 
 ### Prerequisites
 
-To get the Project up and running you need to create `application.properties` under `src/main/resources` with the following contents: 
+You can setup an MongoDB locally to use with the following ´´´docker-compose.yaml```: 
 ```
-server.port=8090
-jwt.secret=myAwesomeJwtSecret
-db.url=jdbc:postgresql://myPostgreSQLurl:5432/auth
-db.user=user
-db.pw=password
-recipe.db.url=jdbc:postgresql://myPostgreSQLurl:5432/recipes
-recipe.db.user=user
-recipe.db.pw=password  
-```
-Make sure to match the `db.url` `db.user` and `db.pw` to your Database.  
+version: '3'
+services:
+  my-mongodb:
+    image: docker.io/bitnami/mongodb:latest
+    container_name: my-mongodb
+    ports:
+      - 27017:27017
+    environment:
+      - MONGODB_ROOT_USER=admin_user
+      - MONGODB_ROOT_PASSWORD=admin_pass
+      - MONGO_INITDB_DATABASE=developmentDB
+      - MONGODB_USERNAME=dev
+      - MONGODB_PASSWORD=password
+      - MONGODB_DATABASE=testDB
+    volumes:
+      - 'mongodb_data:/bitnami/mongodb'
 
-If you take a look into the `doc` folder you can see a `sqlCreate.txt` which contains SQL statements to create the necessary Tables.
-
-Because the application has (at this point) no registration progress, you need to manually insert a user into your Database (make sure to store the password as a Bcrypt Hash).  
+volumes:
+  mongodb_data:
+    driver: local
  
+```
+
 ---
 ## Testing/Starting the application
 
@@ -52,18 +60,6 @@ clean site
 ```
 ---
 To test the application/endpoints I suggest the use of a REST-Client. I personally like and use [Insomnia](https://insomnia.rest/).  
-1. First you need to get a token from the `/authenticate` endpoint   
-Create a `post` request to `localhost:8090/authenticate` with a JSON-Body like this:  
-```
-{
-	"username":"user",
-	"password":"password"
-}
-```
-2. Copy the JWT-Token and set is a `Bearer`-Token for your other Requests  
-3. Choose an API-Endpoint and Have Fun:  
-  + `GET` `localhost:8090/greeting?name=User` will return a Greeting towards the `name`. I used this as an early example/testing to try something out and get a initial *something* working.
-  + `GET` `localhost:8090/getRecipeByTitle?recipeTitle=Salat` will return a `Recipe`if the application can find something with the same Title 
  
 ---
 ## Tests and Reports
