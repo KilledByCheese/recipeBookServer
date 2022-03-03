@@ -18,7 +18,7 @@ I used this *stack* because I already have experience with Maven, Eclipse and Mo
 
 ### Prerequisites
 
-You can setup an MongoDB locally to use with the following ´´´docker-compose.yaml```: 
+You can setup an MongoDB locally to use with the following ```docker-compose.yaml```: 
 ```
 version: '3'
 services:
