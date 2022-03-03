@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import de.killedbycheese.recipeBookServer.auth.entity.RecipeUser;
 import de.killedbycheese.recipeBookServer.auth.repository.RecipeUserRepository;
-import de.killedbycheese.recipeBookServer.auth.util.UserRole;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {

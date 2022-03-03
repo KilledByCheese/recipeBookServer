@@ -47,7 +47,7 @@ public class AuthenticationService {
 			newUser.setPwHash(BCrypt.hashpw(registerRequest.getPassword(), BCrypt.gensalt(12)));
 			newUser.setUserRole(UserRole.USER);
 			
-			recipeUserRepository.save(newUser);
+			recipeUserRepository.insert(newUser);
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		}

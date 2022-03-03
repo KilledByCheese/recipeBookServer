@@ -1,44 +1,38 @@
-package de.killedbycheese.recipeBookServer.recipe.entity;
+package de.killedbycheese.recipeBookServer.recipe.dto;
+
+import java.io.Serializable;
 
 
-import de.killedbycheese.recipeBookServer.recipe.util.Unit;
+public class IngredientDTO implements Serializable {
 
-public class Ingredient {
-	
+	private static final long serialVersionUID = -3610911866484938567L;
+
 	private String ingredient;
 	private int amount;
+	private String unit;
 	
-	private Unit unit;
-
-	public Ingredient() {
+	public IngredientDTO() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	public String getIngredient() {
 		return ingredient;
 	}
-
 	public void setIngredient(String ingredient) {
 		this.ingredient = ingredient;
 	}
-
 	public int getAmount() {
 		return amount;
 	}
-
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-
-	public Unit getUnit() {
+	public String getUnit() {
 		return unit;
 	}
-
-	public void setUnit(Unit unit) {
+	public void setUnit(String unit) {
 		this.unit = unit;
 	}
-	
-
 	
 	
 }

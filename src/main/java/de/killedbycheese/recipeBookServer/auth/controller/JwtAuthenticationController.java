@@ -3,7 +3,6 @@ package de.killedbycheese.recipeBookServer.auth.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.postgresql.util.PSQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
+import com.mongodb.MongoWriteException;
+
 import org.springframework.http.HttpStatus;
 
 import de.killedbycheese.recipeBookServer.auth.dto.JwtRequest;
@@ -25,6 +27,7 @@ import de.killedbycheese.recipeBookServer.auth.service.JwtUserDetailsService;
 import de.killedbycheese.recipeBookServer.auth.util.JwtTokenUtil;
 import de.killedbycheese.recipeBookServer.util.ErrorInfo;
 
+//TODO Keycloak
 @Controller
 public class JwtAuthenticationController {
 	Logger logger = LoggerFactory.getLogger(JwtAuthenticationController.class);
@@ -56,7 +59,7 @@ public class JwtAuthenticationController {
 		return new ResponseEntity<String>("Success", HttpStatus.CREATED);
 	}
 
-	@ExceptionHandler({MethodArgumentNotValidException.class, PSQLException.class})
+	@ExceptionHandler({MethodArgumentNotValidException.class, MongoWriteException.class})
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody ErrorInfo
 	handleBadRequest(HttpServletRequest req, Exception ex) {

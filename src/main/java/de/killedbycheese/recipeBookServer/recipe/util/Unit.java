@@ -8,6 +8,5 @@ public enum Unit {
 	cl,
 	ml,
 	TL,
-	EL,
-	Priese	
+	EL
 }

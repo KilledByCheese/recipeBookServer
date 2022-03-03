@@ -1,30 +1,33 @@
 package de.killedbycheese.recipeBookServer.category.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
+
+import de.killedbycheese.recipeBookServer.recipe.entity.Recipe;
+
+@Document
 public class Category {
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
 	
-	@Column(unique=true)
+	@Id
+	private String categoryId;
+	
+	@Indexed(unique=true)
 	private String value;
+	
+	@DocumentReference
+	private List<Recipe> recipes = new ArrayList<Recipe>();
 
-	public Category() {
-		// TODO Auto-generated constructor stub
+	public String getCategoryId() {
+		return categoryId;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
 	}
 
 	public String getValue() {
@@ -32,6 +35,16 @@ public class Category {
 	}
 
 	public void setValue(String value) {
-		this.value = value.toUpperCase();
+		this.value = value;
 	}
+
+	public List<Recipe> getRecipes() {
+		return recipes;
+	}
+
+	public void setRecipes(List<Recipe> recipes) {
+		this.recipes = recipes;
+	}
+
+	
 }

@@ -19,9 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.mongodb.MongoWriteException;
+
 import de.killedbycheese.recipeBookServer.category.entity.Category;
 import de.killedbycheese.recipeBookServer.category.service.CategoryService;
 import de.killedbycheese.recipeBookServer.util.ErrorInfo;
+
 
 @Controller
 @RequestMapping("/category")
@@ -40,7 +43,8 @@ public class CategoryController {
 
 	@PostMapping
 	public ResponseEntity<?> createCategory(@RequestBody String newCategory) throws Exception {
-		Category createdCategory = categoryService.saveCategory(newCategory);
+		//TODO only allow admins to create Categories
+		Category createdCategory = categoryService.saveCategory(newCategory.toUpperCase());
 		return new ResponseEntity<String>("Success", HttpStatus.CREATED);
 	}
 

@@ -1,6 +1,7 @@
 package de.killedbycheese.recipeBookServer.category.service;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public class CategoryService {
 	private CategoryRepository categoryRepository;
 	
 	public Collection<String> getAllCategories() {
-		return categoryRepository.getAllValues();
+		return categoryRepository.findAll().stream().map(Category::getValue).collect(Collectors.toList());
 	}
 	
 	public Category saveCategory(String category) {
