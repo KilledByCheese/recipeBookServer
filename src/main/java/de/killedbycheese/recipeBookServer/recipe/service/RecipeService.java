@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -88,7 +89,6 @@ public class RecipeService {
 		Recipe recipe = recipeRepository.findById(updateRecipe.getRecipeId()).orElseThrow();
 		RecipeUser user = recipeUserRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
 		if(!(recipe.getRecipeUser().getRecipeUserId().equals(user.getRecipeUserId()))) {
-			System.out.println("========> users not matching");
 			if(!user.getUserRole().equals(UserRole.ADMIN)) {
 				throw new NotAuthorizedException("Unable to update Recipe from other user");
 			}
@@ -126,6 +126,17 @@ public class RecipeService {
 		recipe.setInstructions(steps);
 		
 		recipeRepository.save(recipe);
+	}
+	
+	public void deleteRecipe(@NotEmpty String recipeId) throws NotAuthorizedException {
+		Recipe recipe = recipeRepository.findById(recipeId).orElseThrow();
+		RecipeUser user = recipeUserRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+		if(!(recipe.getRecipeUser().getRecipeUserId().equals(user.getRecipeUserId()))) {
+			if(!user.getUserRole().equals(UserRole.ADMIN)) {
+				throw new NotAuthorizedException("Unable to delete Recipe from other user");
+			}
+		}
+		recipeRepository.delete(recipe);
 	}
 
 }

@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -61,6 +62,12 @@ public class RecipeController {
 	@PutMapping
 	public ResponseEntity<?> updateRecipe(@Valid @RequestBody RecipeDTO updateRecipe) throws Exception {
 		recipeService.updateRecipe(updateRecipe);
+		return new ResponseEntity<String>("Success", HttpStatus.OK);			
+	}
+	
+	@DeleteMapping("/{recipeID}")
+	public ResponseEntity<?> deleteRecipe(@NotEmpty @PathVariable String recipeID) throws Exception {
+		recipeService.deleteRecipe(recipeID);
 		return new ResponseEntity<String>("Success", HttpStatus.OK);			
 	}
 	
