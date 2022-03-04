@@ -1,5 +1,8 @@
 package de.killedbycheese.recipeBookServer.recipe.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,19 +55,27 @@ public class RecipeService {
 			ingr.setAmount(i.getAmount());
 			ingr.setIngredient(i.getIngredient());
 			ingr.setUnit(Unit.valueOf(i.getUnit()));
-			recipe.getIngredients().add(ingr); //TODO validate ingr
+			recipe.getIngredients().add(ingr);
 		}
 		
 		for(StepDTO s : newRecipe.getInstructions()) {
 			Step step = new Step();
 			step.setInstruction(s.getInstruction());
 			step.setStepNumber(s.getStepNumber());;
-			recipe.getInstructions().add(step); //TODO validate step
+			recipe.getInstructions().add(step);
 		}
 		RecipeUser user = recipeUserRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
-		recipe.setRecipeUser(user); //TODO validate recipe
+		recipe.setRecipeUser(user);
 		recipeRepository.save(recipe);
 		
+	}
+	
+	public Recipe getRecipe(String id) {
+		return recipeRepository.findById(id).orElseThrow();
+	}
+	
+	public List<Recipe> getAllRecipes() {
+		return recipeRepository.findAll();
 	}
 
 }

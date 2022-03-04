@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import de.killedbycheese.recipeBookServer.category.entity.Category;
 import de.killedbycheese.recipeBookServer.category.service.CategoryService;
 import de.killedbycheese.recipeBookServer.util.ErrorInfo;
+import de.killedbycheese.recipeBookServer.util.NotAuthorizedException;
 
 
 @Controller
@@ -42,7 +42,7 @@ public class CategoryController {
 	@PostMapping
 	public ResponseEntity<?> createCategory(@RequestBody String newCategory) throws Exception {
 		//TODO only allow admins to create Categories
-		Category createdCategory = categoryService.saveCategory(newCategory.toUpperCase());
+		categoryService.saveCategory(newCategory.toUpperCase());
 		return new ResponseEntity<String>("Success", HttpStatus.CREATED);
 	}
 
@@ -52,5 +52,13 @@ public class CategoryController {
 	handleBadRequest(HttpServletRequest req, Exception ex) {
 		logger.error("Request: {} raised {}", req.getRequestURL(), ex.getLocalizedMessage());
 	    return new ErrorInfo(req.getRequestURI(), ex);
+	} 
+	
+	@ExceptionHandler({NotAuthorizedException.class})
+	@ResponseStatus(HttpStatus.UNAUTHORIZED)
+	@ResponseBody ResponseEntity<String>
+	handleUnauthorized(HttpServletRequest req, Exception ex) {
+		logger.error("Request: {} raised {}", req.getRequestURL(), ex.getLocalizedMessage());
+		return new ResponseEntity<String>("Unauthorized",HttpStatus.UNAUTHORIZED);
 	} 
 }

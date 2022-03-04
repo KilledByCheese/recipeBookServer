@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import de.killedbycheese.recipeBookServer.auth.entity.RecipeUser;
 
 @Repository
-public interface RecipeUserRepository extends MongoRepository<RecipeUser, Long> {
+public interface RecipeUserRepository extends MongoRepository<RecipeUser, String> {
 
 	@Query("{userName: ?0}")
 	RecipeUser findByUserName(String userName);
