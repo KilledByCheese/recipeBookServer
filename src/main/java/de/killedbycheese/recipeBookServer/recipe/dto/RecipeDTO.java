@@ -7,9 +7,11 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
-public class CreateRecipeRequest implements Serializable {
+public class RecipeDTO implements Serializable {
 
 	private static final long serialVersionUID = 7120687813120152583L;
+	
+	private String recipeId;
 
 	@NotEmpty(message = "title cannot be missing")
 	private String title;
@@ -29,8 +31,16 @@ public class CreateRecipeRequest implements Serializable {
 	@NotEmpty(message = "instructions cannot be empty")
 	private List<StepDTO> instructions = new ArrayList<StepDTO>();
 	
-	public CreateRecipeRequest() {
+	public RecipeDTO() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public String getRecipeId() {
+		return recipeId;
+	}
+	
+	public void setRecipeId(String recipeId) {
+		this.recipeId = recipeId;
 	}
 
 	public String getTitle() {

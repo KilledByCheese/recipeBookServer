@@ -1,7 +1,8 @@
 package de.killedbycheese.recipeBookServer.recipe.service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 import javax.validation.Valid;
 
@@ -12,9 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.killedbycheese.recipeBookServer.auth.entity.RecipeUser;
 import de.killedbycheese.recipeBookServer.auth.repository.RecipeUserRepository;
+import de.killedbycheese.recipeBookServer.auth.util.UserRole;
 import de.killedbycheese.recipeBookServer.category.entity.Category;
 import de.killedbycheese.recipeBookServer.category.repository.CategoryRepository;
-import de.killedbycheese.recipeBookServer.recipe.dto.CreateRecipeRequest;
+import de.killedbycheese.recipeBookServer.recipe.dto.RecipeDTO;
 import de.killedbycheese.recipeBookServer.recipe.dto.IngredientDTO;
 import de.killedbycheese.recipeBookServer.recipe.dto.StepDTO;
 import de.killedbycheese.recipeBookServer.recipe.entity.Ingredient;
@@ -23,6 +25,7 @@ import de.killedbycheese.recipeBookServer.recipe.entity.Step;
 import de.killedbycheese.recipeBookServer.recipe.repository.RecipeRepository;
 import de.killedbycheese.recipeBookServer.recipe.util.Difficulty;
 import de.killedbycheese.recipeBookServer.recipe.util.Unit;
+import de.killedbycheese.recipeBookServer.util.NotAuthorizedException;
 
 @Service
 public class RecipeService {
@@ -37,7 +40,7 @@ public class RecipeService {
 	private RecipeUserRepository recipeUserRepository;
 
 	@Transactional
-	public void createRecipe(@Valid CreateRecipeRequest newRecipe) {
+	public void createRecipe(@Valid RecipeDTO newRecipe) {
 		Recipe recipe = new Recipe();
 		recipe.setTitle(newRecipe.getTitle());
 		recipe.setSubtitle(newRecipe.getSubtitle());
@@ -76,6 +79,53 @@ public class RecipeService {
 	
 	public List<Recipe> getAllRecipes() {
 		return recipeRepository.findAll();
+	}
+	
+	@Transactional
+	public void updateRecipe(@Valid RecipeDTO updateRecipe) throws NotAuthorizedException {
+		if(updateRecipe.getRecipeId() == null) throw new NoSuchElementException("RecipeID cannot be missing on update");
+		
+		Recipe recipe = recipeRepository.findById(updateRecipe.getRecipeId()).orElseThrow();
+		RecipeUser user = recipeUserRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+		if(!(recipe.getRecipeUser().getRecipeUserId().equals(user.getRecipeUserId()))) {
+			System.out.println("========> users not matching");
+			if(!user.getUserRole().equals(UserRole.ADMIN)) {
+				throw new NotAuthorizedException("Unable to update Recipe from other user");
+			}
+		}
+		recipe.setTitle(updateRecipe.getTitle());
+		recipe.setSubtitle(updateRecipe.getSubtitle());
+		recipe.setServing(updateRecipe.getServing());
+		
+		List<Category> categories = new ArrayList<Category>();
+		for(String c : updateRecipe.getCategories()) {
+			Category findByValue = categoryRepository.findByValue(c.toUpperCase());
+			if(findByValue != null) categories.add(findByValue);
+		}
+		recipe.setCategory(categories);
+		
+		recipe.setDifficulty(Difficulty.valueOf(updateRecipe.getDifficulty()));
+		
+		List<Ingredient> ingredients = new ArrayList<Ingredient>();
+		for(IngredientDTO i : updateRecipe.getIngredients()) {
+			Ingredient ingr = new Ingredient();
+			ingr.setAmount(i.getAmount());
+			ingr.setIngredient(i.getIngredient());
+			ingr.setUnit(Unit.valueOf(i.getUnit()));
+			ingredients.add(ingr);
+		}
+		recipe.setIngredients(ingredients);
+		
+		List<Step> steps = new ArrayList<Step>();
+		for(StepDTO s : updateRecipe.getInstructions()) {
+			Step step = new Step();
+			step.setInstruction(s.getInstruction());
+			step.setStepNumber(s.getStepNumber());;
+			steps.add(step);
+		}
+		recipe.setInstructions(steps);
+		
+		recipeRepository.save(recipe);
 	}
 
 }
