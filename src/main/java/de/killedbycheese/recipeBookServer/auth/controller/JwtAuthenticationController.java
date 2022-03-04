@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -58,6 +59,11 @@ public class JwtAuthenticationController {
 
 		authenticationService.registerNewUser(registerRequest);
 		return new ResponseEntity<String>("Success", HttpStatus.CREATED);
+	}
+	
+	@GetMapping(value = "/validate")
+	public ResponseEntity<?> validateToken() throws Exception {		
+		return new ResponseEntity<String>("Token is valid", HttpStatus.OK);
 	}
 
 	@ExceptionHandler({MethodArgumentNotValidException.class, MongoWriteException.class})
