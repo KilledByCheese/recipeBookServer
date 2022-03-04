@@ -4,6 +4,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import de.killedbycheese.recipeBookServer.recipe.entity.Recipe;
 
-public interface RecipeRepository extends MongoRepository<Recipe, Long> {
+public interface RecipeRepository extends MongoRepository<Recipe, String> {
 
 }

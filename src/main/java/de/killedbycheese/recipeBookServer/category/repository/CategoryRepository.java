@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import de.killedbycheese.recipeBookServer.category.entity.Category;
 
 @Repository
-public interface CategoryRepository extends MongoRepository<Category, Long>{
+public interface CategoryRepository extends MongoRepository<Category, String>{
 		
 	@Query("{value: ?0}")
 	Category findByValue(String value);
