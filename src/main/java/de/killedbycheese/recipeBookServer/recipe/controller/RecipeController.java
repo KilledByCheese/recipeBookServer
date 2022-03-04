@@ -1,44 +1,47 @@
 package de.killedbycheese.recipeBookServer.recipe.controller;
 
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-import de.killedbycheese.recipeBookServer.auth.service.JwtUserDetailsService;
-import de.killedbycheese.recipeBookServer.auth.util.JwtTokenUtil;
-import de.killedbycheese.recipeBookServer.category.entity.Category;
 import de.killedbycheese.recipeBookServer.recipe.dto.CreateRecipeRequest;
 import de.killedbycheese.recipeBookServer.recipe.service.RecipeService;
+import de.killedbycheese.recipeBookServer.util.ErrorInfo;
 
 @Controller
 @RequestMapping("/recipe")
 public class RecipeController {
 	
-	@Autowired
-	private RecipeService recipeService;
+	Logger logger = LoggerFactory.getLogger(RecipeController.class);
 	
 	@Autowired
-	private JwtTokenUtil jwtTokenUtil;
+	private RecipeService recipeService;
 
 	@PostMapping
-	public ResponseEntity<?> createCategory(@RequestHeader(name="Authorization") String token,@Valid @RequestBody CreateRecipeRequest newRecipe) throws Exception {
-		if (token != null && token.startsWith("Bearer ")) {
-			String jwtToken = token.substring(7);
-			String username = jwtTokenUtil.getUsernameFromToken(jwtToken);
-			
-			
-			recipeService.createRecipe(newRecipe, username);
-			return new ResponseEntity<String>("Success", HttpStatus.CREATED);
-		}
-		return new ResponseEntity<String>("No User Provided", HttpStatus.BAD_REQUEST);
-		
+	public ResponseEntity<?> createCategory(@Valid @RequestBody CreateRecipeRequest newRecipe) throws Exception {
+		recipeService.createRecipe(newRecipe);
+		return new ResponseEntity<String>("Success", HttpStatus.CREATED);
+	}
+	
+	@ExceptionHandler({MethodArgumentNotValidException.class})
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseBody ErrorInfo
+	handleBadRequest(HttpServletRequest req, Exception ex) {
+		logger.error("Request: {} raised {}", req.getRequestURL(), ex.getLocalizedMessage());
+	    return new ErrorInfo(req.getRequestURI(), ex);
 	}
 }

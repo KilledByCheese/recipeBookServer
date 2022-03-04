@@ -3,6 +3,11 @@ package de.killedbycheese.recipeBookServer.recipe.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
@@ -16,22 +21,25 @@ public class Recipe {
 	
 	@Id
 	private String recipeId;
-	
+	@NotEmpty(message = "title cannot be missing")
 	private String title;
+	@NotEmpty(message = "subtitle cannot be missing")
 	private String subtitle;
-	
+	@NotNull(message = "ingredient cannot be missing")
 	@DocumentReference
 	private RecipeUser recipeUser; 
-	
 	@DocumentReference
+	@NotEmpty(message = "category cannot be empty")
 	private List<Category> category = new ArrayList<Category>();
-		
+	@Positive(message = "serving cannot be negative")
 	private int serving;
-	
+	@NotEmpty(message = "difficulty cannot be missing")
 	private Difficulty difficulty;
-	
+	@Valid
+	@NotEmpty(message = "ingredients cannot be empty")
 	private List<Ingredient> ingredients = new ArrayList<Ingredient>();
-	
+	@Valid
+	@NotEmpty(message = "instructions cannot be empty")
 	private List<Step> instructions = new ArrayList<Step>();
 	
 	public Recipe() {

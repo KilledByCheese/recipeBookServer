@@ -4,19 +4,29 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+
 public class CreateRecipeRequest implements Serializable {
 
 	private static final long serialVersionUID = 7120687813120152583L;
 
+	@NotEmpty(message = "title cannot be missing")
 	private String title;
+	@NotEmpty(message = "subtitle cannot be missing")
 	private String subtitle;
 	
+	@NotEmpty(message = "categories cannot be empty")
 	private List<String> categories = new ArrayList<String>();
 
 	private int serving;
+	@NotEmpty(message = "difficulty cannot be missing")
 	private String difficulty;
-	
+	@Valid
+	@NotEmpty(message = "ingredients cannot be empty")
 	private List<IngredientDTO> ingredients = new ArrayList<IngredientDTO>();
+	@Valid
+	@NotEmpty(message = "instructions cannot be empty")
 	private List<StepDTO> instructions = new ArrayList<StepDTO>();
 	
 	public CreateRecipeRequest() {

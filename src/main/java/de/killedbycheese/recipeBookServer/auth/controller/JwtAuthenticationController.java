@@ -63,7 +63,7 @@ public class JwtAuthenticationController {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody ErrorInfo
 	handleBadRequest(HttpServletRequest req, Exception ex) {
-		logger.error("Request: " + req.getRequestURL() + " raised " + ex);
+		logger.error("Request: {} raised {}", req.getRequestURL(), ex.getLocalizedMessage());
 	    return new ErrorInfo(req.getRequestURI(), ex);
 	} 
 	

@@ -1,8 +1,12 @@
 package de.killedbycheese.recipeBookServer.recipe.entity;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
 
 public class Step {
+	@Positive(message = "stepNumber cannot be negative")
 	private int stepNumber;
+	@NotEmpty(message = "instruction cannot be missing")
 	private String instruction;
 	
 	public Step() {

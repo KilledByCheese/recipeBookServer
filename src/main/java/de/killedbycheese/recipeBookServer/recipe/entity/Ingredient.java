@@ -1,11 +1,16 @@
 package de.killedbycheese.recipeBookServer.recipe.entity;
 
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
+
 import de.killedbycheese.recipeBookServer.recipe.util.Unit;
 
 public class Ingredient {
 	
+	@NotEmpty(message = "ingredient cannot be missing")
 	private String ingredient;
+	@Positive(message = "amount cannot be negative")
 	private int amount;
 	
 	private Unit unit;
