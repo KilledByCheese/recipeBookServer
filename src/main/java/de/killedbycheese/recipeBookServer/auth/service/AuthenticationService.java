@@ -30,27 +30,22 @@ public class AuthenticationService {
 			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 			authenticationManager.authenticate(authentication);
 		} catch (DisabledException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			throw new DisabledException("USER_DISABLED", e);
 		} catch (BadCredentialsException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			throw new BadCredentialsException("INVALID_CREDENTIALS", e);
 		} 
 	}
 
 	public void registerNewUser(@Valid RegisterRequest registerRequest) {
-
-		try {
-			RecipeUser newUser = new RecipeUser();
-			newUser.setUserName(registerRequest.getUsername());
-			newUser.setEmail(registerRequest.getEmail());
-			newUser.setPwHash(BCrypt.hashpw(registerRequest.getPassword(), BCrypt.gensalt(12)));
-			newUser.setUserRole(UserRole.USER);
-			
-			recipeUserRepository.insert(newUser);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		}
+		RecipeUser newUser = new RecipeUser();
+		newUser.setUserName(registerRequest.getUsername());
+		newUser.setEmail(registerRequest.getEmail());
+		newUser.setPwHash(BCrypt.hashpw(registerRequest.getPassword(), BCrypt.gensalt(12)));
+		newUser.setUserRole(UserRole.USER);
+		
+		recipeUserRepository.insert(newUser);
 	}
 
 		
